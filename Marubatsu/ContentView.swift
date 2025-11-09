@@ -19,6 +19,8 @@ struct Quiz: Identifiable, Codable {
 
 struct ContentView: View {
     
+    @Environment(\.dismiss) private var dismiss
+    
     // 問題
     let quizeExamples: [Quiz] = [
         Quiz(question: "iPhoneアプリを開発する統合環境はZcodeである", answer: false),
@@ -77,18 +79,17 @@ struct ContentView: View {
                     }
                 }
                 .padding()
-                
-                
                 .navigationTitle("マルバツクイズ") // ナビゲーションバーにタイトル設定
+                .navigationBarBackButtonHidden(true)
                 // 回答時のアラートを追加
                 .alert(alertTitle, isPresented: $showingAlert) {
                     Button("OK", role: .cancel) { /* 処理なし */ }
                 }
-                // 問題作成画面へ遷移するためのボタンを設置
+                // カスタム戻るボタンと作成画面へ遷移するためのボタンを設置
                 .toolbar {
-                    // 配置する場所を画面最上部のバーの右端に設定
+                    // 末尾(右側)に作成画面への遷移ボタン
                     ToolbarItem(placement: .topBarTrailing) {
-                        NavigationLink {
+                        NavigationLink{
                             // 遷移先の画面
                             CreateView(quizzesArray: $quizzesArray)
                                 .navigationTitle("問題を作ろう")
@@ -143,7 +144,5 @@ struct ContentView: View {
 // MARK: - Preview
 
 #Preview {
-    // Previewでは空のDataを使用
-    let _ = UserDefaults.standard.set(Data(), forKey: "quiz")
-    return ContentView()
+   ContentView()
 }
