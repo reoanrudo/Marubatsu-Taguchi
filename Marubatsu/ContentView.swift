@@ -77,6 +77,9 @@ struct ContentView: View {
                         .foregroundStyle(.white)                  // 文字色を白
                         .background(.blue)                         // 背景を青
                     }
+                    .onAppear {
+                        currentQuestionNum = 0 //回答画面に戻ったときに、最初の問題が表示されるように
+                    }
                 }
                 .padding()
                 .navigationTitle("マルバツクイズ") // ナビゲーションバーにタイトル設定
@@ -144,5 +147,5 @@ struct ContentView: View {
 // MARK: - Preview
 
 #Preview {
-   ContentView()
+    ContentView()
 }
